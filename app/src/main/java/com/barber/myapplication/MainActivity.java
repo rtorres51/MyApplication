@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // Iniciar conexión MQTT
         try {
             mqttClient = new MqttClient(MQTT_BROKER_URL, MqttClient.generateClientId(), null);
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CitaAdapter(citaList);
         recyclerView.setAdapter(adapter);
 
-        // Configura el listener aquí, dentro del onCreate()
+        // listener de click largo para eliminar datos de recycler view
         adapter.setOnItemLongClickListener(cita -> {
             // Acción a realizar al hacer click largo (editar/eliminar)
             new androidx.appcompat.app.AlertDialog.Builder(this)
@@ -148,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
             String nombre = etNombre.getText().toString().trim();
             String fecha = etFecha.getText().toString().trim();
             String hora = etHora.getText().toString().trim();
+
+            Log.e("Datos firebase", nombre + fecha + hora);
+            Toast.makeText(getApplicationContext(),nombre+fecha+hora,Toast.LENGTH_SHORT).show();
 
             if (nombre.isEmpty() || fecha.isEmpty() || hora.isEmpty()) {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
